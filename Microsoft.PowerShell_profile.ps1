@@ -13,7 +13,7 @@
 #
 # mklink C:\path\to\Microsoft.PowerShell_profile.ps1 C:\git\dotfiles\Microsoft.PowerShell_profile.ps1
 
-oh-my-posh --init --shell pwsh --config C:\git\dotfiles\.ohmyposh.json | Invoke-Expression
+oh-my-posh --init --shell pwsh --config C:\DeveloperArea\dotfiles\.ohmyposh.json | Invoke-Expression
 
 Import-Module -Name Terminal-Icons
 
