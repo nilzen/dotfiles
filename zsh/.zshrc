@@ -10,6 +10,14 @@ source <(fzf --zsh)
 # Case-insensitive completion
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
+# Completion system
+autoload bashcompinit && bashcompinit
+autoload -Uz compinit
+compinit
+
+# Autosuggestions
+source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+
 # ================ NVM Setup ==================
 #
 # Node Version Manager setup
