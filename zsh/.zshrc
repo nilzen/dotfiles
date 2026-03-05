@@ -7,6 +7,9 @@ eval "$(starship init zsh)"
 # Fuzzy finder (fzf) setup
 source <(fzf --zsh)
 
+# Case-insensitive completion
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+
 # ================ NVM Setup ==================
 #
 # Node Version Manager setup
