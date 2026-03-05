@@ -3,6 +3,7 @@
 # ============== Initialization ==============
 # Starship prompt initialization
 eval "$(starship init zsh)"
+export STARSHIP_CONFIG=~/.config/starship/starship.toml
 
 # Fuzzy finder (fzf) setup
 source <(fzf --zsh)
