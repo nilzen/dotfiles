@@ -24,3 +24,18 @@ repository to initialize the symlinks for your development environment:
 ```
 
 This will take care of setting up everything for you! 🎉
+
+## Dev environment setup (pre-commit + gitleaks) 🧪
+
+If you want dev tooling (pre-commit + gitleaks), use the dev setup script:
+
+```bash
+./setup-dev.sh
+```
+
+This installs `pre-commit`, configures the git hook, and enables gitleaks checks
+on every commit. You can also run a one-off scan:
+
+```bash
+pre-commit run gitleaks --all-files
+```
