@@ -26,8 +26,8 @@ if [ -n "${zsh_path:-}" ] && [ -x "$zsh_path" ]; then
   fi
 fi
 
-stow --dotfiles --target="$HOME" zsh tmux
-stow --target="$HOME/.config" --ignore='^(zsh|tmux)$' .
+stow --dotfiles --target="$HOME" zsh tmux aerospace
+stow --target="$HOME/.config" --ignore='^(zsh|tmux|aerospace)$' .
 
 if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
   git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
