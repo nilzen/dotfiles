@@ -1,0 +1,7 @@
+.stowrc
+DS_Store
+instructions.md
+setup.sh
+setup-dev.sh
+install-packages.sh
+.pre-commit-config.yaml

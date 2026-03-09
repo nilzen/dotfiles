@@ -1,8 +1,1 @@
 --target=~/.config
---ignore=.stowrc
---ignore=DS_Store
---ignore=instructions.md
---ignore=setup.sh
---ignore=setup-dev.sh
---ignore=install-packages.sh
---ignore=.pre-commit-config.yaml
