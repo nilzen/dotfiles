@@ -6,7 +6,6 @@ script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$script_dir/install-packages.sh"
 
 zsh_path="$(install_packages_auto --print-zsh-path stow zsh tmux starship fzf zsh-autosuggestions tree)"
-dotfile_packages=(zsh tmux aerospace)
 
 if [ "$(uname -s)" = "Darwin" ] && command -v brew >/dev/null 2>&1; then
   if ! brew list --cask aerospace >/dev/null 2>&1; then
@@ -27,9 +26,8 @@ if [ -n "${zsh_path:-}" ] && [ -x "$zsh_path" ]; then
   fi
 fi
 
-stow --dotfiles --target="$HOME" "${dotfile_packages[@]}"
-dotfile_ignore_pattern="^($(IFS='|'; echo "${dotfile_packages[*]}"))$"
-stow --target="$HOME/.config" --ignore="$dotfile_ignore_pattern" .
+stow --dotfiles --target="$HOME" zsh tmux aerospace
+stow --target="$HOME/.config" --ignore='^(zsh|tmux|aerospace)$' .
 
 if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
   git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
