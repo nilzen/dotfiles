@@ -17,10 +17,12 @@ This will take care of setting up everything for you! 🎉
 The setup installs and stows:
 - `zsh` (`~/.zshrc`)
 - `tmux` (`~/.tmux.conf`)
-- config folders under `~/.config` (for example `nvim` and `starship`)
+- config folders under `~/.config` (for example `nvim`, `starship`, and `opencode`)
 
 After setup, tmux plugin manager (TPM) is also installed at
 `~/.tmux/plugins/tpm` if it is not already present.
+
+OpenCode uses the Catppuccin theme via `~/.config/opencode/tui.json`.
 
 ## Dev environment setup (pre-commit + gitleaks) 🧪
 
