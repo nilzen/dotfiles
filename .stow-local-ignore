@@ -5,3 +5,6 @@ setup.sh
 setup-dev.sh
 install-packages.sh
 .pre-commit-config.yaml
+.git
+.gitignore
+README.md

@@ -14,6 +14,11 @@ for your development environment:
 
 This will take care of setting up everything for you! 🎉
 
+The setup installs and stows:
+- `zsh` (`~/.zshrc`)
+- `tmux` (`~/.tmux.conf`)
+- config folders under `~/.config` (for example `nvim` and `starship`)
+
 ## Dev environment setup (pre-commit + gitleaks) 🧪
 
 If you want dev tooling (pre-commit + gitleaks), use the dev setup script:
