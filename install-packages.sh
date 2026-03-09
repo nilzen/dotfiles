@@ -2,6 +2,16 @@
 
 set -euo pipefail
 
+LOG_STDERR=0
+
+log() {
+  if [ "${LOG_STDERR:-0}" -eq 1 ]; then
+    echo "$@" >&2
+  else
+    echo "$@"
+  fi
+}
+
 detect_package_manager() {
   if command -v brew >/dev/null 2>&1; then
     echo "brew"
@@ -26,6 +36,10 @@ install_packages_auto() {
   if [ "${1:-}" = "--print-zsh-path" ]; then
     print_zsh_path=1
     shift
+  fi
+
+  if [ $print_zsh_path -eq 1 ]; then
+    LOG_STDERR=1
   fi
 
   local pkg_manager
@@ -63,7 +77,7 @@ install_packages_auto() {
       if ! command -v starship >/dev/null 2>&1; then
         curl -fsSL https://starship.rs/install.sh | sh -s -- -y
       else
-        echo "✅ Already installed: starship"
+        log "✅ Already installed: starship"
       fi
     fi
   else
@@ -92,7 +106,7 @@ install_packages() {
         if ! brew list --formula "$pkg" >/dev/null 2>&1; then
           missing+=("$pkg")
         else
-          echo "✅ Already installed: $pkg"
+          log "✅ Already installed: $pkg"
         fi
       done
       if [ ${#missing[@]} -gt 0 ]; then
@@ -104,7 +118,7 @@ install_packages() {
         if ! dpkg -s "$pkg" >/dev/null 2>&1; then
           missing+=("$pkg")
         else
-          echo "✅ Already installed: $pkg"
+          log "✅ Already installed: $pkg"
         fi
       done
       if [ ${#missing[@]} -gt 0 ]; then
@@ -116,7 +130,7 @@ install_packages() {
         if ! pacman -Qi "$pkg" >/dev/null 2>&1; then
           missing+=("$pkg")
         else
-          echo "✅ Already installed: $pkg"
+          log "✅ Already installed: $pkg"
         fi
       done
       if [ ${#missing[@]} -gt 0 ]; then
