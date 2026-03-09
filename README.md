@@ -19,6 +19,9 @@ The setup installs and stows:
 - `tmux` (`~/.tmux.conf`)
 - config folders under `~/.config` (for example `nvim` and `starship`)
 
+After setup, tmux plugin manager (TPM) is also installed at
+`~/.tmux/plugins/tpm` if it is not already present.
+
 ## Dev environment setup (pre-commit + gitleaks) 🧪
 
 If you want dev tooling (pre-commit + gitleaks), use the dev setup script:

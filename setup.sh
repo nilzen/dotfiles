@@ -20,3 +20,10 @@ fi
 
 stow --dotfiles --target="$HOME" zsh tmux
 stow --target="$HOME/.config" --ignore='^(zsh|tmux)$' .
+
+if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+  git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+fi
+
+tmux start-server \; set-environment -g TMUX_PLUGIN_MANAGER_PATH "$HOME/.tmux/plugins"
+"$HOME/.tmux/plugins/tpm/bin/install_plugins"
