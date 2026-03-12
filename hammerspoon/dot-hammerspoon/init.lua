@@ -15,10 +15,28 @@ local workspace_switch_keycodes = {
   [48] = "tab",
 }
 
+local workspace_move_keycodes = {
+  [18] = "1",
+  [19] = "2",
+  [20] = "3",
+  [21] = "4",
+  [23] = "5",
+  [22] = "6",
+  [26] = "7",
+  [28] = "8",
+  [25] = "9",
+  [29] = "0",
+}
+
 local left_alt_active = false
+local left_alt_down = false
 
 local function has_extra_modifiers(flags)
   return flags.cmd or flags.ctrl or flags.shift or flags.fn
+end
+
+local function has_move_extra_modifiers(flags)
+  return flags.cmd or flags.ctrl or flags.fn
 end
 
 local left_alt_tap = hs.eventtap.new({ hs.eventtap.event.types.flagsChanged }, function(event)
@@ -27,17 +45,27 @@ local left_alt_tap = hs.eventtap.new({ hs.eventtap.event.types.flagsChanged }, f
   end
 
   local flags = event:getFlags()
-  left_alt_active = flags.alt and not has_extra_modifiers(flags)
+  left_alt_down = flags.alt
+  left_alt_active = left_alt_down and not has_extra_modifiers(flags)
 
   return false
 end)
 
 local workspace_switch_tap = hs.eventtap.new({ hs.eventtap.event.types.keyDown }, function(event)
+  local flags = event:getFlags()
+
+  if left_alt_down and flags.alt and flags.shift and not has_move_extra_modifiers(flags) then
+    local key = workspace_move_keycodes[event:getKeyCode()]
+    if key then
+      hs.eventtap.keyStroke({ "cmd", "alt", "shift" }, key, 0)
+      return true
+    end
+  end
+
   if not left_alt_active then
     return false
   end
 
-  local flags = event:getFlags()
   if not flags.alt or has_extra_modifiers(flags) then
     return false
   end
