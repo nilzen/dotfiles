@@ -18,7 +18,7 @@ The setup installs and stows:
 - `zsh` (`~/.zshrc`)
 - `tmux` (`~/.tmux.conf`)
 - `aerospace` (`~/.aerospace.toml`) on macOS
-- `hammerspoon` on macOS
+- `hammerspoon` (`~/.hammerspoon/init.lua`) on macOS
 - config folders under `~/.config` (for example `nvim`, `starship`, and `opencode`)
 
 After setup, tmux plugin manager (TPM) is also installed at
