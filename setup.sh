@@ -13,6 +13,12 @@ if [ "$(uname -s)" = "Darwin" ] && command -v brew >/dev/null 2>&1; then
   else
     echo "✅ Already installed: aerospace"
   fi
+
+  if ! brew list --cask hammerspoon >/dev/null 2>&1; then
+    brew install --cask hammerspoon
+  else
+    echo "✅ Already installed: hammerspoon"
+  fi
 fi
 
 if [ -n "${zsh_path:-}" ] && [ -x "$zsh_path" ]; then
