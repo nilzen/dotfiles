@@ -21,6 +21,8 @@ The setup installs and stows:
 - `hammerspoon` (`~/.hammerspoon/init.lua`) on macOS
 - config folders under `~/.config` (for example `nvim`, `starship`, and `opencode`)
 
+On macOS, Hammerspoon remaps `alt-1..0` and `alt-shift-1..0` into hidden AeroSpace shortcuts so workspace switching and window moves do not steal typed symbols on keyboard layouts where `alt-shift-number` produces characters like `{` and `}`.
+
 After setup, tmux plugin manager (TPM) is also installed at
 `~/.tmux/plugins/tpm` if it is not already present.
 
