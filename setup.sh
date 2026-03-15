@@ -63,3 +63,8 @@ fi
 
 tmux start-server \; set-environment -g TMUX_PLUGIN_MANAGER_PATH "$HOME/.tmux/plugins"
 "$HOME/.tmux/plugins/tpm/bin/install_plugins"
+
+if command -v zsh >/dev/null 2>&1 && [ -f "$HOME/.zshrc" ] && [ -z "${SETUP_SKIP_SHELL_RELOAD:-}" ] && [ -t 0 ] && [ -t 1 ]; then
+  echo "Reloading zsh to apply updated shell aliases."
+  exec "${zsh_path:-$(command -v zsh)}" -i
+fi
