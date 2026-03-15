@@ -30,6 +30,10 @@ export NVM_DIR="$HOME/.nvm"
 alias v="nvim"
 alias vi="nvim"
 alias vim="nvim"
+alias ls="eza"
+alias ll="eza -l"
+alias la="eza -la"
+alias tree="eza --tree"
 
 # ============== Additional Configs ============
 # Add Opencode binaries to PATH
