@@ -31,8 +31,10 @@ alias v="nvim"
 alias vi="nvim"
 alias vim="nvim"
 alias ls="eza"
+alias l="eza -1"
 alias ll="eza -l"
 alias la="eza -la"
+alias lt="eza --tree"
 alias tree="eza --tree"
 
 # ============== Additional Configs ============
