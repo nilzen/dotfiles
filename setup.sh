@@ -19,15 +19,23 @@ if [ "$(uname -s)" = "Darwin" ] && command -v brew >/dev/null 2>&1; then
   else
     echo "✅ Already installed: hammerspoon"
   fi
+
+  if ! brew list --cask ghostty >/dev/null 2>&1; then
+    brew install --cask ghostty
+  else
+    echo "✅ Already installed: ghostty"
+  fi
 fi
 
 if [ -n "${zsh_path:-}" ] && [ -x "$zsh_path" ]; then
-  if ! grep -q "$zsh_path" /etc/shells; then
-    echo "Adding $zsh_path to /etc/shells (requires sudo)."
-    echo "$zsh_path" | sudo tee -a /etc/shells >/dev/null
-  fi
+  current_shell_name="$(basename "${SHELL:-}")"
 
-  if [ "$SHELL" != "$zsh_path" ]; then
+  if [ "$current_shell_name" != "zsh" ]; then
+    if ! grep -q "$zsh_path" /etc/shells; then
+      echo "Adding $zsh_path to /etc/shells (requires sudo)."
+      echo "$zsh_path" | sudo tee -a /etc/shells >/dev/null
+    fi
+
     chsh -s "$zsh_path"
   fi
 fi
