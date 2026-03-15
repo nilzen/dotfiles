@@ -53,6 +53,10 @@ fi
 stow --dotfiles --target="$HOME" zsh tmux aerospace hammerspoon
 stow --target="$HOME/.config" --ignore='^(zsh|tmux|aerospace|hammerspoon)$' .
 
+if command -v zsh >/dev/null 2>&1 && [ -f "$HOME/.zshrc" ]; then
+  ZDOTDIR="$HOME" zsh -i -c 'exit'
+fi
+
 if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
   git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
 fi
