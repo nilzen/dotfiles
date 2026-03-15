@@ -32,6 +32,16 @@ if [ -n "${zsh_path:-}" ] && [ -x "$zsh_path" ]; then
   fi
 fi
 
+if [ -e "$HOME/.zshrc" ] && [ ! -L "$HOME/.zshrc" ]; then
+  backup_path="$HOME/.zshrc.backup.$(date +%Y%m%d%H%M%S)"
+  mv "$HOME/.zshrc" "$backup_path"
+  echo "Backed up existing .zshrc to $backup_path"
+fi
+
+if [ ! -d "$HOME/.config" ]; then
+  mkdir "$HOME/.config"
+fi
+
 stow --dotfiles --target="$HOME" zsh tmux aerospace hammerspoon
 stow --target="$HOME/.config" --ignore='^(zsh|tmux|aerospace|hammerspoon)$' .
 
