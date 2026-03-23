@@ -40,14 +40,15 @@ if [ "$(uname -s)" = "Darwin" ] && command -v brew >/dev/null 2>&1; then
 fi
 
 if [ -n "${zsh_path:-}" ] && [ -x "$zsh_path" ]; then
-  current_shell_name="$(basename "${SHELL:-}")"
+  current_shell_path="${SHELL:-}"
 
-  if [ "$current_shell_name" != "zsh" ]; then
+  if [ ! -x "$current_shell_path" ] || [ "$current_shell_path" != "$zsh_path" ]; then
     if ! grep -q "$zsh_path" /etc/shells; then
       echo "Adding $zsh_path to /etc/shells (requires sudo)."
       echo "$zsh_path" | sudo tee -a /etc/shells >/dev/null
     fi
 
+    echo "Setting login shell to $zsh_path."
     chsh -s "$zsh_path"
   fi
 fi
