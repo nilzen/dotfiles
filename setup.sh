@@ -85,5 +85,15 @@ tmux start-server \; set-environment -g TMUX_PLUGIN_MANAGER_PATH "$HOME/.tmux/pl
 
 if command -v zsh >/dev/null 2>&1 && [ -f "$HOME/.zshrc" ] && [ -z "${SETUP_SKIP_SHELL_RELOAD:-}" ] && [ -t 0 ] && [ -t 1 ]; then
   echo "Reloading zsh to apply updated shell aliases."
-  exec "${zsh_path:-$(resolve_zsh_path)}" -i
+  reload_zsh_path="${zsh_path:-}"
+
+  if [ -z "$reload_zsh_path" ]; then
+    reload_zsh_path="$(resolve_zsh_path || true)"
+  fi
+
+  if [ -n "$reload_zsh_path" ] && [ -x "$reload_zsh_path" ]; then
+    exec "$reload_zsh_path" -i
+  fi
+
+  echo "Skipping zsh reload because no executable zsh path was resolved."
 fi

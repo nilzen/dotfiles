@@ -9,7 +9,33 @@ export STARSHIP_CONFIG=~/.config/starship/starship.toml
 
 # Fuzzy finder (fzf) setup
 if command -v fzf >/dev/null 2>&1; then
-  source <(fzf --zsh)
+  fzf_help_text="$(fzf --help 2>&1 || true)"
+
+  if [[ "$fzf_help_text" == *"--zsh"* ]]; then
+    source <(fzf --zsh)
+  else
+    fzf_shell_paths=()
+
+    if command -v brew >/dev/null 2>&1; then
+      fzf_shell_paths+=("$(brew --prefix)/opt/fzf/shell/key-bindings.zsh")
+      fzf_shell_paths+=("$(brew --prefix)/opt/fzf/shell/completion.zsh")
+    fi
+
+    fzf_shell_paths+=(
+      "/usr/share/fzf/key-bindings.zsh"
+      "/usr/share/fzf/completion.zsh"
+      "/usr/local/share/fzf/key-bindings.zsh"
+      "/usr/local/share/fzf/completion.zsh"
+      "/opt/homebrew/opt/fzf/shell/key-bindings.zsh"
+      "/opt/homebrew/opt/fzf/shell/completion.zsh"
+    )
+
+    for fzf_shell_path in "${fzf_shell_paths[@]}"; do
+      if [ -f "$fzf_shell_path" ]; then
+        source "$fzf_shell_path"
+      fi
+    done
+  fi
 fi
 
 # Case-insensitive completion
