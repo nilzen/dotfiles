@@ -35,16 +35,16 @@ resolve_zsh_path() {
   local candidate
   local candidates=()
 
-  if command -v zsh >/dev/null 2>&1; then
-    candidates+=("$(command -v zsh)")
-  fi
-
   candidates+=(
     "/bin/zsh"
     "/usr/bin/zsh"
     "/usr/local/bin/zsh"
     "/opt/homebrew/bin/zsh"
   )
+
+  if command -v zsh >/dev/null 2>&1; then
+    candidates+=("$(command -v zsh)")
+  fi
 
   for candidate in "${candidates[@]}"; do
     if [ -n "$candidate" ] && [ -x "$candidate" ]; then
