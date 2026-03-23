@@ -5,6 +5,8 @@ set -euo pipefail
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$script_dir/install-packages.sh"
 
+resolved_zsh_path="$(resolve_zsh_path || true)"
+
 packages=(stow zsh tmux starship fzf zsh-autosuggestions eza)
 
 if [ "$(uname -s)" = "Darwin" ]; then
@@ -12,6 +14,10 @@ if [ "$(uname -s)" = "Darwin" ]; then
 fi
 
 zsh_path="$(install_packages_auto --print-zsh-path "${packages[@]}")"
+
+if [ -z "${zsh_path:-}" ]; then
+  zsh_path="$resolved_zsh_path"
+fi
 
 if [ "$(uname -s)" = "Darwin" ] && command -v brew >/dev/null 2>&1; then
   if ! brew list --cask aerospace >/dev/null 2>&1; then
@@ -78,5 +84,5 @@ tmux start-server \; set-environment -g TMUX_PLUGIN_MANAGER_PATH "$HOME/.tmux/pl
 
 if command -v zsh >/dev/null 2>&1 && [ -f "$HOME/.zshrc" ] && [ -z "${SETUP_SKIP_SHELL_RELOAD:-}" ] && [ -t 0 ] && [ -t 1 ]; then
   echo "Reloading zsh to apply updated shell aliases."
-  exec "${zsh_path:-$(command -v zsh)}" -i
+  exec "${zsh_path:-$(resolve_zsh_path)}" -i
 fi

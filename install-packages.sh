@@ -31,6 +31,31 @@ detect_package_manager() {
   return 1
 }
 
+resolve_zsh_path() {
+  local candidate
+  local candidates=()
+
+  if command -v zsh >/dev/null 2>&1; then
+    candidates+=("$(command -v zsh)")
+  fi
+
+  candidates+=(
+    "/bin/zsh"
+    "/usr/bin/zsh"
+    "/usr/local/bin/zsh"
+    "/opt/homebrew/bin/zsh"
+  )
+
+  for candidate in "${candidates[@]}"; do
+    if [ -n "$candidate" ] && [ -x "$candidate" ]; then
+      echo "$candidate"
+      return 0
+    fi
+  done
+
+  return 1
+}
+
 install_packages_auto() {
   local print_zsh_path=0
   if [ "${1:-}" = "--print-zsh-path" ]; then
@@ -85,11 +110,7 @@ install_packages_auto() {
   fi
 
   if [ $print_zsh_path -eq 1 ]; then
-    if [ "$pkg_manager" = "brew" ]; then
-      echo "$(brew --prefix)/bin/zsh"
-    else
-      echo "$(command -v zsh)"
-    fi
+    resolve_zsh_path
   fi
 }
 
