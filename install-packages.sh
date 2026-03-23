@@ -99,6 +99,7 @@ install_packages() {
 
   local pkg
   local missing=()
+  local install_name
 
   case "$pkg_manager" in
     brew)
@@ -115,10 +116,18 @@ install_packages() {
       ;;
     apt)
       for pkg in "$@"; do
-        if ! dpkg -s "$pkg" >/dev/null 2>&1; then
-          missing+=("$pkg")
+        install_name="$pkg"
+        if [ "$pkg" = "ghostty" ]; then
+          log "Skipping unsupported apt package: ghostty"
+          continue
+        fi
+        if [ "$pkg" = "zsh-autosuggestions" ]; then
+          install_name="zsh-autosuggestions"
+        fi
+        if ! dpkg -s "$install_name" >/dev/null 2>&1; then
+          missing+=("$install_name")
         else
-          log "✅ Already installed: $pkg"
+          log "✅ Already installed: $install_name"
         fi
       done
       if [ ${#missing[@]} -gt 0 ]; then
@@ -127,10 +136,15 @@ install_packages() {
       ;;
     pacman)
       for pkg in "$@"; do
-        if ! pacman -Qi "$pkg" >/dev/null 2>&1; then
-          missing+=("$pkg")
+        install_name="$pkg"
+        if [ "$pkg" = "ghostty" ]; then
+          log "Skipping unsupported pacman package: ghostty"
+          continue
+        fi
+        if ! pacman -Qi "$install_name" >/dev/null 2>&1; then
+          missing+=("$install_name")
         else
-          log "✅ Already installed: $pkg"
+          log "✅ Already installed: $install_name"
         fi
       done
       if [ ${#missing[@]} -gt 0 ]; then

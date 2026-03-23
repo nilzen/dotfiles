@@ -2,11 +2,15 @@
 
 # ============== Initialization ==============
 # Starship prompt initialization
-eval "$(starship init zsh)"
+if command -v starship >/dev/null 2>&1; then
+  eval "$(starship init zsh)"
+fi
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
 
 # Fuzzy finder (fzf) setup
-source <(fzf --zsh)
+if command -v fzf >/dev/null 2>&1; then
+  source <(fzf --zsh)
+fi
 
 # Case-insensitive completion
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
@@ -17,7 +21,25 @@ autoload -Uz compinit
 compinit
 
 # Autosuggestions
-source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+zsh_autosuggestions_paths=()
+
+if command -v brew >/dev/null 2>&1; then
+  zsh_autosuggestions_paths+=("$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh")
+fi
+
+zsh_autosuggestions_paths+=(
+  "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+  "/usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+  "/opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+  "$HOME/.local/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+)
+
+for zsh_autosuggestions_path in "${zsh_autosuggestions_paths[@]}"; do
+  if [ -f "$zsh_autosuggestions_path" ]; then
+    source "$zsh_autosuggestions_path"
+    break
+  fi
+done
 
 # ================ NVM Setup ==================
 #
@@ -30,13 +52,15 @@ export NVM_DIR="$HOME/.nvm"
 alias v="nvim"
 alias vi="nvim"
 alias vim="nvim"
-alias ls="eza"
-alias l="eza -1"
-alias lh="eza -lah"
-alias ll="eza -l"
-alias la="eza -la"
-alias lt="eza --tree"
-alias tree="eza --tree"
+if command -v eza >/dev/null 2>&1; then
+  alias ls="eza"
+  alias l="eza -1"
+  alias lh="eza -lah"
+  alias ll="eza -l"
+  alias la="eza -la"
+  alias lt="eza --tree"
+  alias tree="eza --tree"
+fi
 
 # ============== Additional Configs ============
 # Add Opencode binaries to PATH
@@ -47,4 +71,7 @@ if [ -d "$HOME/.local/bin" ]; then
 fi
 
 # SSH Authentication Agent
-export SSH_AUTH_SOCK="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+op_ssh_auth_sock="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+if [ -S "$op_ssh_auth_sock" ]; then
+  export SSH_AUTH_SOCK="$op_ssh_auth_sock"
+fi

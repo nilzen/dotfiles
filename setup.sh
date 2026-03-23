@@ -5,7 +5,13 @@ set -euo pipefail
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$script_dir/install-packages.sh"
 
-zsh_path="$(install_packages_auto --print-zsh-path stow zsh tmux starship fzf zsh-autosuggestions eza)"
+packages=(stow zsh tmux starship fzf zsh-autosuggestions eza)
+
+if [ "$(uname -s)" = "Darwin" ]; then
+  packages+=(ghostty)
+fi
+
+zsh_path="$(install_packages_auto --print-zsh-path "${packages[@]}")"
 
 if [ "$(uname -s)" = "Darwin" ] && command -v brew >/dev/null 2>&1; then
   if ! brew list --cask aerospace >/dev/null 2>&1; then
@@ -50,7 +56,13 @@ if [ ! -d "$HOME/.config" ]; then
   mkdir "$HOME/.config"
 fi
 
-stow --dotfiles --target="$HOME" zsh tmux aerospace hammerspoon
+stow_packages=(zsh tmux)
+
+if [ "$(uname -s)" = "Darwin" ]; then
+  stow_packages+=(aerospace hammerspoon)
+fi
+
+stow --dotfiles --target="$HOME" "${stow_packages[@]}"
 stow --target="$HOME/.config" --ignore='^(zsh|tmux|aerospace|hammerspoon)$' .
 
 if command -v zsh >/dev/null 2>&1 && [ -f "$HOME/.zshrc" ]; then
