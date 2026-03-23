@@ -179,10 +179,14 @@ install_packages() {
   case "$pkg_manager" in
     brew)
       for pkg in "$@"; do
+        install_name="$pkg"
+        if [ "$pkg" = "build-essential" ]; then
+          install_name="make"
+        fi
         if ! brew list --formula "$pkg" >/dev/null 2>&1; then
-          missing+=("$pkg")
+          missing+=("$install_name")
         else
-          log "✅ Already installed: $pkg"
+          log "✅ Already installed: $install_name"
         fi
       done
       if [ ${#missing[@]} -gt 0 ]; then
@@ -195,6 +199,9 @@ install_packages() {
         if [ "$pkg" = "ghostty" ]; then
           log "Skipping unsupported apt package: ghostty"
           continue
+        fi
+        if [ "$pkg" = "build-essential" ]; then
+          install_name="build-essential"
         fi
         if [ "$pkg" = "zsh-autosuggestions" ]; then
           install_name="zsh-autosuggestions"
@@ -215,6 +222,9 @@ install_packages() {
         if [ "$pkg" = "ghostty" ]; then
           log "Skipping unsupported pacman package: ghostty"
           continue
+        fi
+        if [ "$pkg" = "build-essential" ]; then
+          install_name="base-devel"
         fi
         if ! pacman -Qi "$install_name" >/dev/null 2>&1; then
           missing+=("$install_name")

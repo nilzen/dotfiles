@@ -11,6 +11,8 @@ packages=(stow zsh tmux starship fzf zsh-autosuggestions eza)
 
 if [ "$(uname -s)" = "Darwin" ]; then
   packages+=(ghostty)
+elif [ "$(uname -s)" = "Linux" ]; then
+  packages+=(build-essential)
 fi
 
 zsh_path="$(install_packages_auto --print-zsh-path "${packages[@]}")"
