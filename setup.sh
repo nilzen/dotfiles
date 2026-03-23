@@ -63,6 +63,8 @@ if [ ! -d "$HOME/.config" ]; then
   mkdir "$HOME/.config"
 fi
 
+install_neovim_latest
+
 stow_packages=(zsh tmux)
 
 if [ "$(uname -s)" = "Darwin" ]; then

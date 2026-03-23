@@ -56,8 +56,62 @@ resolve_zsh_path() {
   return 1
 }
 
+install_neovim_latest() {
+  local os
+  local arch
+  local archive_name
+  local download_url
+  local tmp_dir
+  local archive_path
+  local extracted_dir
+  local install_dir="$HOME/.local/opt/neovim"
+  local local_bin_dir="$HOME/.local/bin"
+
+  os="$(uname -s)"
+  arch="$(uname -m)"
+
+  case "$os-$arch" in
+    Darwin-arm64|Darwin-aarch64)
+      archive_name="nvim-macos-arm64.tar.gz"
+      ;;
+    Darwin-x86_64)
+      archive_name="nvim-macos-x86_64.tar.gz"
+      ;;
+    Linux-aarch64|Linux-arm64)
+      archive_name="nvim-linux-arm64.tar.gz"
+      ;;
+    Linux-x86_64)
+      archive_name="nvim-linux-x86_64.tar.gz"
+      ;;
+    *)
+      echo "Unsupported platform for Neovim install: $os/$arch" >&2
+      return 1
+      ;;
+  esac
+
+  download_url="https://github.com/neovim/neovim/releases/latest/download/$archive_name"
+  tmp_dir="$(mktemp -d)"
+  archive_path="$tmp_dir/$archive_name"
+  extracted_dir="$tmp_dir/${archive_name%.tar.gz}"
+
+  curl -fsSL "$download_url" -o "$archive_path"
+  mkdir -p "$HOME/.local/opt" "$local_bin_dir"
+  tar -xzf "$archive_path" -C "$tmp_dir"
+  rm -rf "$install_dir"
+  mv "$extracted_dir" "$install_dir"
+  ln -sf "$install_dir/bin/nvim" "$local_bin_dir/nvim"
+
+  if [ "$os" = "Darwin" ] && command -v xattr >/dev/null 2>&1; then
+    xattr -dr com.apple.quarantine "$install_dir" >/dev/null 2>&1 || true
+  fi
+
+  rm -rf "$tmp_dir"
+  log "Installed latest Neovim release"
+}
+
 install_packages_auto() {
   local print_zsh_path=0
+
   if [ "${1:-}" = "--print-zsh-path" ]; then
     print_zsh_path=1
     shift
