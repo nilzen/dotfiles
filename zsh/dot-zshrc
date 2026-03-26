@@ -75,6 +75,31 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # ================== Aliases ===================
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias ......="cd ../../../../.."
+alias ~="cd ~"
+alias -- -="cd -"
+
+# Git
+alias g="git"
+alias ga="git add"
+alias gc="git commit"
+alias gp="git push"
+alias gs="git status"
+alias gl="git log --oneline"
+
+# Safety nets
+alias cp="cp -i"
+alias mv="mv -i"
+alias rm="rm -i"
+
+# Misc
+alias reload="source ~/.zshrc"
+alias path='echo -e ${PATH//:/\\n}'
+alias ports='lsof -iTCP -sTCP:LISTEN -n -P'
 alias v="nvim"
 alias vi="nvim"
 alias vim="nvim"
