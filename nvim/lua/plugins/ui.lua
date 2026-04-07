@@ -1,9 +1,10 @@
 return {
   {
     "nvim-lualine/lualine.nvim",
+    dependencies = { "catppuccin/nvim" },
     opts = function(_, opts)
       opts.options = opts.options or {}
-      opts.options.theme = "catppuccin"
+      opts.options.theme = "catppuccin-mocha"
       opts.options.component_separators = { left = "", right = "" }
       opts.options.section_separators = { left = "", right = "" }
       opts.sections = opts.sections or {}
