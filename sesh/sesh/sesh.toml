@@ -1,0 +1,18 @@
+#:schema https://github.com/joshmedeski/sesh/raw/main/sesh.schema.json
+
+# Don't exit tmux when the last session is closed
+# (set detach-on-destroy off in tmux.conf to complement this)
+
+blacklist = ["scratch"]
+
+[default_session]
+startup_command = "nvim -c ':lua require(\"telescope.builtin\").find_files()'"
+preview_command = "eza --all --git --icons --color=always {}"
+
+[[wildcard]]
+pattern = "~/git/*"
+startup_command = "nvim"
+
+[[wildcard]]
+pattern = "~/projects/*"
+startup_command = "nvim"

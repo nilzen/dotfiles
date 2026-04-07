@@ -109,6 +109,56 @@ install_neovim_latest() {
   log "Installed latest Neovim release"
 }
 
+install_go_latest() {
+  local os
+  local arch
+  local archive_name
+  local download_url
+  local tmp_dir
+  local archive_path
+  local install_dir="$HOME/.local/opt/go"
+  local local_bin_dir="$HOME/.local/bin"
+
+  os="$(uname -s)"
+  arch="$(uname -m)"
+
+  case "$os-$arch" in
+    Linux-x86_64)
+      archive_name="go-linux-amd64"
+      ;;
+    Linux-aarch64|Linux-arm64)
+      archive_name="go-linux-arm64"
+      ;;
+    Darwin-arm64|Darwin-aarch64)
+      archive_name="go-darwin-arm64"
+      ;;
+    Darwin-x86_64)
+      archive_name="go-darwin-amd64"
+      ;;
+    *)
+      echo "Unsupported platform for Go install: $os/$arch" >&2
+      return 1
+      ;;
+  esac
+
+  local go_version
+  go_version="$(curl -fsSL https://go.dev/VERSION?m=text | head -1)"
+  download_url="https://go.dev/dl/${go_version}.${archive_name}.tar.gz"
+  tmp_dir="$(mktemp -d)"
+  archive_path="$tmp_dir/go.tar.gz"
+
+  curl -fsSL "$download_url" -o "$archive_path"
+  mkdir -p "$HOME/.local/opt" "$local_bin_dir"
+  rm -rf "$install_dir"
+  tar -xzf "$archive_path" -C "$HOME/.local/opt"
+  mv "$HOME/.local/opt/go" "$install_dir"
+  ln -sf "$install_dir/bin/go" "$local_bin_dir/go"
+  ln -sf "$install_dir/bin/gofmt" "$local_bin_dir/gofmt"
+
+  rm -rf "$tmp_dir"
+  log "Installed Go ${go_version}"
+}
+
 install_packages_auto() {
   local print_zsh_path=0
 
@@ -139,10 +189,13 @@ install_packages_auto() {
     local pkg
     local filtered=()
     local wants_starship=0
+    local wants_sesh=0
 
     for pkg in "$@"; do
       if [ "$pkg" = "starship" ]; then
         wants_starship=1
+      elif [ "$pkg" = "sesh" ]; then
+        wants_sesh=1
       else
         filtered+=("$pkg")
       fi
@@ -157,6 +210,19 @@ install_packages_auto() {
         curl -fsSL https://starship.rs/install.sh | sh -s -- -y
       else
         log "✅ Already installed: starship"
+      fi
+    fi
+
+    if [ $wants_sesh -eq 1 ]; then
+      if ! command -v sesh >/dev/null 2>&1; then
+        if ! command -v go >/dev/null 2>&1; then
+          install_go_latest
+          export PATH="$HOME/.local/bin:$PATH"
+        fi
+        go install github.com/joshmedeski/sesh/v2@latest
+        ln -sf "$HOME/go/bin/sesh" "$HOME/.local/bin/sesh"
+      else
+        log "✅ Already installed: sesh"
       fi
     fi
   else
@@ -219,8 +285,8 @@ install_packages() {
     pacman)
       for pkg in "$@"; do
         install_name="$pkg"
-        if [ "$pkg" = "ghostty" ]; then
-          log "Skipping unsupported pacman package: ghostty"
+        if [ "$pkg" = "ghostty" ] || [ "$pkg" = "sesh" ]; then
+          log "Skipping unsupported pacman package: $pkg"
           continue
         fi
         if [ "$pkg" = "build-essential" ]; then
