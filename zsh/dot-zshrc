@@ -113,6 +113,30 @@ if command -v eza >/dev/null 2>&1; then
   alias tree="eza --tree"
 fi
 
+# ================== Zoxide ==================
+if command -v zoxide >/dev/null 2>&1; then
+  eval "$(zoxide init zsh)"
+fi
+
+# ================== Sesh ====================
+if command -v sesh >/dev/null 2>&1; then
+  sesh() {
+    local local_cfg="$HOME/.config/sesh/local.toml"
+    local base_cfg="$HOME/.config/sesh/sesh.toml"
+    if [ -f "$local_cfg" ]; then
+      local tmp_cfg
+      tmp_cfg="$(mktemp /tmp/sesh-merged.XXXXXX.toml)"
+      cat "$base_cfg" "$local_cfg" > "$tmp_cfg"
+      command sesh --config "$tmp_cfg" "$@"
+      local exit_code=$?
+      rm -f "$tmp_cfg"
+      return $exit_code
+    else
+      command sesh "$@"
+    fi
+  }
+fi
+
 # ============== Additional Configs ============
 # Add Opencode binaries to PATH
 export PATH="$HOME/.opencode/bin:$PATH"

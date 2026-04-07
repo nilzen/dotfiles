@@ -7,7 +7,7 @@ source "$script_dir/install-packages.sh"
 
 resolved_zsh_path="$(resolve_zsh_path || true)"
 
-packages=(stow zsh tmux starship fzf zsh-autosuggestions eza sesh)
+packages=(stow zsh tmux starship fzf zsh-autosuggestions eza zoxide sesh)
 
 if [ "$(uname -s)" = "Darwin" ]; then
   packages+=(ghostty)
