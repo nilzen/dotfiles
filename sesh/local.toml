@@ -14,7 +14,7 @@ windows = ["sm-backend", "sm-frontend", "sm-terminal"]
 name = "eflux"
 path = "~/git/edu-infra-eflux/EFlux.DesktopMonitor.Electron"
 startup_command = "nvim"
-windows = ["ef-opencode", "ef-terminal"]
+windows = ["ef-opencode", "ef-start", "ef-terminal"]
 
 [[window]]
 name = "df-opencode"
@@ -42,6 +42,11 @@ path = "~/git/edu-main/Modules/ScheduleMaker/Frontend/Professional"
 name = "ef-opencode"
 path = "~/git/edu-infra-eflux/EFlux.DesktopMonitor.Electron"
 startup_script = "opencode"
+
+[[window]]
+name = "ef-start"
+path = "~/git/edu-infra-eflux/EFlux.DesktopMonitor.Electron"
+startup_script = "pnpm start"
 
 [[window]]
 name = "ef-terminal"
