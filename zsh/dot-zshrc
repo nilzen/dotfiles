@@ -1,5 +1,14 @@
 # ~/.zshrc
 
+# ================ History ===================
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=100000
+SAVEHIST=100000
+setopt SHARE_HISTORY        # Share history across all sessions in real time
+setopt HIST_IGNORE_DUPS     # Don't record consecutive duplicate commands
+setopt HIST_IGNORE_SPACE    # Don't record commands starting with a space
+setopt HIST_REDUCE_BLANKS   # Remove superfluous blanks before recording
+
 # ============== Initialization ==============
 # Starship prompt initialization
 if command -v starship >/dev/null 2>&1; then
