@@ -3,6 +3,9 @@
 # Don't exit tmux when the last session is closed
 # (set detach-on-destroy off in tmux.conf to complement this)
 
+# Machine-local sessions (not committed)
+import = ["~/.config/sesh/local.toml"]
+
 blacklist = ["scratch"]
 
 [default_session]
