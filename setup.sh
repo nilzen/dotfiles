@@ -7,7 +7,7 @@ source "$script_dir/install-packages.sh"
 
 resolved_zsh_path="$(resolve_zsh_path || true)"
 
-packages=(stow zsh tmux starship fzf zsh-autosuggestions eza zoxide sesh)
+packages=(stow zsh tmux starship fzf zsh-autosuggestions eza zoxide sesh bat git-delta)
 
 if [ "$(uname -s)" = "Darwin" ]; then
   packages+=(ghostty)
@@ -67,7 +67,7 @@ fi
 
 install_neovim_latest
 
-stow_packages=(zsh tmux)
+stow_packages=(zsh tmux git)
 
 if [ "$(uname -s)" = "Darwin" ]; then
   stow_packages+=(aerospace hammerspoon)

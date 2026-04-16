@@ -97,8 +97,18 @@ alias g="git"
 alias ga="git add"
 alias gc="git commit"
 alias gp="git push"
+alias gpu="git push -u origin HEAD"
 alias gs="git status"
+alias gd="git diff"
 alias gl="git log --oneline"
+
+gco() {
+  local branch
+  branch=$(git branch --sort=-committerdate | grep -v HEAD | sed 's/^[* ] //' | fzf)
+  if [ -n "$branch" ]; then
+    git checkout "${branch#remotes/*/}"
+  fi
+}
 
 # Safety nets
 alias cp="cp -i"
@@ -112,6 +122,9 @@ alias ports='lsof -iTCP -sTCP:LISTEN -n -P'
 alias v="nvim"
 alias vi="nvim"
 alias vim="nvim"
+if command -v bat >/dev/null 2>&1; then
+  alias cat="bat"
+fi
 if command -v eza >/dev/null 2>&1; then
   alias ls="eza"
   alias l="eza -1"
