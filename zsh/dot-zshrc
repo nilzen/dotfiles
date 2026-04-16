@@ -95,6 +95,7 @@ alias -- -="cd -"
 # Git
 alias g="git"
 alias ga="git add"
+alias gaa="git add -A"
 gc() { git commit -m "$*"; }
 alias gp="git push"
 alias gpu="git push -u origin HEAD"
