@@ -9,6 +9,7 @@
   dark = true
   line-numbers = true
   side-by-side = true
+  syntax-theme = Catppuccin Mocha
 
 [merge]
   conflictstyle = diff3
