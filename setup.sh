@@ -67,7 +67,7 @@ fi
 
 install_neovim_latest
 
-stow_packages=(zsh tmux git)
+stow_packages=(zsh tmux git claude)
 
 if [ "$(uname -s)" = "Darwin" ]; then
   stow_packages+=(aerospace hammerspoon)

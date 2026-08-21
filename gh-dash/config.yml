@@ -96,7 +96,7 @@ keybindings:
     - key: C
       name: code review-pr-for-this-branch
       command: >-
-        pane_id=$(herdr tab create --label "PR-{{.PrNumber}}" --cwd "{{.RepoPath}}" --focus | jq -r '.result.root_pane.pane_id'); herdr pane run "$pane_id" "wt switch pr:{{.PrNumber}} --no-hooks -x opencode -- --prompt '@code-reviewer: review-pr-for-this-branch'"
+        pane_id=$(herdr tab create --label "PR-{{.PrNumber}}" --cwd "{{.RepoPath}}" --focus | jq -r '.result.root_pane.pane_id'); herdr pane run "$pane_id" "wt switch pr:{{.PrNumber}} --no-hooks -x claude -- --agent code-reviewer --effort low 'review PR #{{.PrNumber}} for this branch'"
 
 repoPaths: {}
 theme:
