@@ -111,11 +111,6 @@ gco() {
   fi
 }
 
-# Safety nets
-alias cp="cp -i"
-alias mv="mv -i"
-alias rm="rm -i"
-
 # Misc
 alias reload="source ~/.zshrc"
 alias path='echo -e ${PATH//:/\\n}'
