@@ -7,8 +7,7 @@
 - `setup-dev.sh` runs the normal setup, then installs `pre-commit`.
 - `install-packages.sh` contains shared package-manager detection and install helpers.
 - `nvim/` contains a LazyVim-based Neovim config written in Lua.
-- `aerospace/`, `tmux/`, `zsh/`, `starship/`, `ghostty/`, and `opencode/` are stow packages.
-- `opencode/node_modules/` and `.opencode/node_modules/` are vendor trees; do not edit them by hand.
+- `aerospace/`, `tmux/`, `zsh/`, `starship/`, and `ghostty/` are stow packages.
 
 ## Rule Files
 
@@ -48,12 +47,6 @@
 - Format one Lua file: `stylua nvim/lua/plugins/lsp.lua`
 - Smoke test the Neovim config from the repo root: `XDG_CONFIG_HOME="$PWD" nvim --headless '+qa'`
 - If you only changed Lua config, run both: `stylua nvim && XDG_CONFIG_HOME="$PWD" nvim --headless '+qa'`
-
-### JSON / Package Validation
-
-- There are minimal `package.json` files in `opencode/` and `.opencode/` with no scripts.
-- `npm test` and `npm run lint` are not defined there.
-- If you edit those files, validate with a parser if needed: `python -m json.tool opencode/package.json >/dev/null`
 
 ### What To Run For Common Changes
 

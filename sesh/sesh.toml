@@ -24,7 +24,7 @@ startup_command = "nvim"
 name = "dotfiles"
 path = "~/git/dotfiles"
 startup_command = "nvim"
-windows = ["df-opencode", "df-terminal"]
+windows = ["df-terminal"]
 
 [[session]]
 name = "schedulemaker"
@@ -36,11 +36,7 @@ windows = ["sm-backend", "sm-frontend", "sm-terminal"]
 name = "eflux"
 path = "~/git/edu-infra-eflux/EFlux.DesktopMonitor.Electron"
 startup_command = "nvim"
-windows = ["ef-opencode", "ef-start", "ef-terminal"]
-
-[[window]]
-name = "df-opencode"
-startup_script = "opencode"
+windows = ["ef-start", "ef-terminal"]
 
 [[window]]
 name = "df-terminal"
@@ -59,11 +55,6 @@ startup_script = "npm run start"
 [[window]]
 name = "sm-terminal"
 path = "~/git/edu-main/Modules/ScheduleMaker/Frontend/Professional"
-
-[[window]]
-name = "ef-opencode"
-path = "~/git/edu-infra-eflux/EFlux.DesktopMonitor.Electron"
-startup_script = "opencode"
 
 [[window]]
 name = "ef-start"

@@ -156,9 +156,6 @@ if command -v sesh >/dev/null 2>&1; then
 fi
 
 # ============== Additional Configs ============
-# Add Opencode binaries to PATH
-export PATH="$HOME/.opencode/bin:$PATH"
-
 if [ -d "$HOME/.local/bin" ]; then
   export PATH="$HOME/.local/bin:$PATH"
 fi

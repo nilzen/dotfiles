@@ -19,14 +19,12 @@ The setup installs and stows:
 - `tmux` (`~/.tmux.conf`)
 - `aerospace` (`~/.aerospace.toml`) on macOS
 - `hammerspoon` (`~/.hammerspoon/init.lua`) on macOS
-- config folders under `~/.config` (for example `nvim`, `starship`, and `opencode`)
+- config folders under `~/.config` (for example `nvim` and `starship`)
 
 On macOS, Hammerspoon remaps `alt-1..0` and `alt-shift-1..0` into hidden AeroSpace shortcuts so workspace switching and window moves do not steal typed symbols on keyboard layouts where `alt-shift-number` produces characters like `{` and `}`.
 
 After setup, tmux plugin manager (TPM) is also installed at
 `~/.tmux/plugins/tpm` if it is not already present.
-
-OpenCode uses the Catppuccin theme via `~/.config/opencode/tui.json`.
 
 ## Dev environment setup (pre-commit + gitleaks) 🧪
 
