@@ -9,4 +9,4 @@ SETUP_SKIP_SHELL_RELOAD=1 "$repo_root/setup.sh"
 
 install_packages_auto pre-commit
 
-pre-commit install
+pre-commit install --hook-type pre-commit --hook-type pre-push
