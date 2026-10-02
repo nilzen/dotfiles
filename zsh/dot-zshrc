@@ -168,3 +168,8 @@ op_ssh_auth_sock="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agen
 if [ -S "$op_ssh_auth_sock" ]; then
   export SSH_AUTH_SOCK="$op_ssh_auth_sock"
 fi
+
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
+
+# Load Angular CLI autocompletion.
+if command -v ng >/dev/null 2>&1; then source <(ng completion script); fi
