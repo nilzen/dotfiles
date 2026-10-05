@@ -7,7 +7,7 @@ source "$script_dir/install-packages.sh"
 
 resolved_zsh_path="$(resolve_zsh_path || true)"
 
-packages=(stow zsh tmux starship fzf zsh-autosuggestions eza zoxide sesh bat git-delta)
+packages=(stow zsh tmux starship fzf zsh-autosuggestions eza zoxide sesh bat git-delta direnv)
 
 if [ "$(uname -s)" = "Darwin" ]; then
   packages+=(ghostty)
@@ -74,7 +74,7 @@ if [ "$(uname -s)" = "Darwin" ]; then
 fi
 
 stow --dotfiles --target="$HOME" "${stow_packages[@]}"
-stow --target="$HOME/.config" --ignore='^(zsh|tmux|aerospace|hammerspoon)$' .
+stow --target="$HOME/.config" --ignore='^(zsh|tmux|aerospace|hammerspoon|\.envrc)$' .
 
 if command -v zsh >/dev/null 2>&1 && [ -f "$HOME/.zshrc" ]; then
   ZDOTDIR="$HOME" zsh -i -c 'exit'
