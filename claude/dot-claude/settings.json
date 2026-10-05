@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "afplay /System/Library/Sounds/Funk.aiff >/dev/null 2>&1 &"
+            "command": "bash ~/.claude/hooks/play-sound.sh attention"
           }
         ]
       }
@@ -16,7 +16,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "afplay /System/Library/Sounds/Bottle.aiff >/dev/null 2>&1 &"
+            "command": "bash ~/.claude/hooks/play-sound.sh done"
           }
         ]
       }
@@ -26,7 +26,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "afplay /System/Library/Sounds/Basso.aiff >/dev/null 2>&1 &"
+            "command": "bash ~/.claude/hooks/play-sound.sh error"
           }
         ]
       }
@@ -36,7 +36,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "afplay /System/Library/Sounds/Funk.aiff >/dev/null 2>&1 &"
+            "command": "bash ~/.claude/hooks/play-sound.sh attention"
           }
         ]
       }
