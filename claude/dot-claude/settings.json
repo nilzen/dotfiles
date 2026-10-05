@@ -1,24 +1,12 @@
 {
   "model": "sonnet",
   "hooks": {
-    "SessionStart": [
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash '/Users/olov.nilzen/.claude/hooks/herdr-agent-state.sh' session",
-            "timeout": 10
-          }
-        ]
-      }
-    ],
     "PermissionRequest": [
       {
         "hooks": [
           {
             "type": "command",
-            "command": "afplay /System/Library/Sounds/Funk.aiff >/dev/null 2>&1 &"
+            "command": "bash ~/.claude/hooks/play-sound.sh attention"
           }
         ]
       }
@@ -28,7 +16,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "afplay /System/Library/Sounds/Bottle.aiff >/dev/null 2>&1 &"
+            "command": "bash ~/.claude/hooks/play-sound.sh done"
           }
         ]
       }
@@ -38,7 +26,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "afplay /System/Library/Sounds/Basso.aiff >/dev/null 2>&1 &"
+            "command": "bash ~/.claude/hooks/play-sound.sh error"
           }
         ]
       }
@@ -48,7 +36,18 @@
         "hooks": [
           {
             "type": "command",
-            "command": "afplay /System/Library/Sounds/Funk.aiff >/dev/null 2>&1 &"
+            "command": "bash ~/.claude/hooks/play-sound.sh attention"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/open-code-insiders.sh",
+            "timeout": 10
           }
         ]
       }
@@ -56,7 +55,10 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "bash '/Users/olov.nilzen/.claude/statusline-command.sh'"
+    "command": "bash ~/.claude/statusline-command.sh"
+  },
+  "enabledPlugins": {
+    "tmux-agent-sidebar@hiroppy": true
   },
   "extraKnownMarketplaces": {
     "hiroppy": {
@@ -83,8 +85,5 @@
     "mode": "hold"
   },
   "theme": "dark",
-  "voiceEnabled": false,
-  "enabledPlugins": {
-    "tmux-agent-sidebar@hiroppy": true
-  }
+  "voiceEnabled": false
 }
