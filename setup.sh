@@ -67,6 +67,10 @@ fi
 
 install_neovim_latest
 
+if command -v npm >/dev/null 2>&1 && ! command -v ccstatusline >/dev/null 2>&1; then
+  npm install -g ccstatusline@latest
+fi
+
 stow_packages=(zsh tmux git claude)
 
 if [ "$(uname -s)" = "Darwin" ]; then
