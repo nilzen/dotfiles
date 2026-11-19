@@ -113,3 +113,10 @@ aerospace_shortcuts.left_alt_tap:start()
 aerospace_shortcuts.workspace_switch_tap:start()
 aerospace_shortcuts.config_watcher:start()
 hs.alert.show("Hammerspoon loaded")
+
+-- Command-line access (hs -c ...)
+require("hs.ipc")
+
+-- AirPods Transparency during Teams calls
+teams_airpods = require("teams_airpods_transparency")
+teams_airpods.start()
