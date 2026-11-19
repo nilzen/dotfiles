@@ -96,7 +96,7 @@ keybindings:
     - key: C
       name: code review-pr-for-this-branch
       command: >-
-        tmux new-window -c "{{.RepoPath}}" -n "PR-{{.PrNumber}}" "wt switch pr:{{.PrNumber}} --no-hooks -x sh -- -c 'git fetch origin -q && git reset --hard \"@{u}\"; exec claude \"review PR #{{.PrNumber}} for this branch\" --effort medium --model claude-opus-5-5 --allowed-tools \"Read Grep Glob Bash(git *) Bash(gh *)\"'"
+        tmux new-window -c "{{.RepoPath}}" -n "PR-{{.PrNumber}}" "wt switch pr:{{.PrNumber}} --no-hooks -x sh -- -c 'git fetch origin -q && git reset --hard \"@{u}\"; exec claude \"review PR #{{.PrNumber}} for this branch. This is feedback only for other team members: do NOT edit, fix, commit or push anything. Report findings as concise feedback the user can pass on to the PR author. Always rank the findings by severity and group the output under the headings Critical, High, Medium, Low (omit empty groups), most severe first within each group. Every finding must include a repo-relative file:line reference, where the line number is the line in the new (PR head) version of the file.\" --effort low --model claude-sonnet-5-5 --allowed-tools \"Read Grep Glob Bash(git *) Bash(gh *)\"'"
 
 repoPaths: {}
 theme:
