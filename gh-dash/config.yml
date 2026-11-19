@@ -96,7 +96,7 @@ keybindings:
     - key: C
       name: code review-pr-for-this-branch
       command: >-
-        tmux new-window -c "{{.RepoPath}}" -n "PR-{{.PrNumber}}" "wt switch pr:{{.PrNumber}} --no-hooks -x sh -- -c 'git fetch origin -q && git reset --hard \"@{u}\"; exec claude \"review PR #{{.PrNumber}} for this branch\" --effort low --model claude-sonnet-5 --allowed-tools \"Read Grep Glob Bash(git *) Bash(gh *)\"'"
+        tmux new-window -c "{{.RepoPath}}" -n "PR-{{.PrNumber}}" "wt switch pr:{{.PrNumber}} --no-hooks -x sh -- -c 'git fetch origin -q && git reset --hard \"@{u}\"; exec claude \"review PR #{{.PrNumber}} for this branch\" --effort medium --model claude-opus-5-5 --allowed-tools \"Read Grep Glob Bash(git *) Bash(gh *)\"'"
 
 repoPaths: {}
 theme:
